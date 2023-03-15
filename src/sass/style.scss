@@ -1,0 +1,88 @@
+body {
+    background-color: rgba(0, 0, 0, 0.15);
+    
+}
+.wrapper {
+    margin: 30px auto;
+    max-width: 1110px;
+    text-align: center;
+}
+
+.title {
+    font-size: 36px;
+    margin: 20px;
+}
+
+.input {
+padding: 10px;
+font-size: 18px;
+border-radius: 10px;
+    
+}
+.form {
+    display: grid;
+    position: relative;
+    width:  350px;
+    gap: 10px;
+    margin: 0 auto;
+    grid-auto-flow: column;
+}
+
+.button {
+    height: 44px;
+    border-radius: 10px;
+}
+
+.repo {
+    margin: 10px auto;
+    display: grid;
+    gap: 10px;
+    grid-template-columns: 1fr 1fr;
+    &__item {
+        border-radius: 10px;
+        background-color: #fff;
+        padding: 15px;
+        text-align: left;
+       
+    }
+  
+    &__name {
+        display: flex;
+        align-items: flex-end;
+        margin-bottom: 20px;
+        a {
+            font-size: 24px;
+            text-decoration: none;
+            color :black; 
+            transition: 0.3s color;
+            &:hover {
+                color: red
+            } 
+        }
+    }
+    &__avatar {
+        width: 50px;
+        border-radius: 50%;
+        margin-right: 20px;
+    }
+    &__descr {
+        font-size: 18px;
+        margin-bottom: 20px;
+    }
+    &__info {
+        display: grid;
+        gap: 10px;
+    }
+}
+.error {
+position: absolute;
+top: 35px;
+left: 0;
+color: rgb(230 0 0);
+}
+
+@media (max-width: 600px) {
+    .repo {
+    grid-template-columns: 1fr;
+    }
+}
