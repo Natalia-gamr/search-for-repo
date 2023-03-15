@@ -8,23 +8,27 @@ let button = form.querySelector('button')
 const itemEl = document.createElement('div')
 wrapper.append(itemEl)
 itemEl.classList.add('repo')
-console.log(itemEl.children)
 
-input.oninput = () => {
-    if (input.value.length < 3) {
-        err()
+async function validateForm(e) {
+    if (form.name.value && form.name.value.length > 2) {
+        await data(e)
+        form.reset();
+        return;
     } else {
-        errEl.remove()
-        button.removeAttribute('disabled')
-        console.log(input.value)
+        const errEl = document.createElement('p')
+        form.append(errEl)
+        errEl.classList.add('error')
+        errEl.innerHTML = 'Недостаточно символов'
+        form.name.addEventListener('keypress', () => {
+            errEl.remove()
+        })
     }
 }
 
-
-form.addEventListener('submit', async (e) => {
-    await data(e)
-    form.reset();
-})
+button.onclick = async (e) => {
+    e.preventDefault()
+    await validateForm(e)
+}
 
 let str = document.createElement('p')
 str.innerHTML = 'Репозиторий не найден'
@@ -32,7 +36,7 @@ str.classList.add('error')
 
 async function data(e) {
     e.preventDefault()
-    input = Object.fromEntries(new FormData(e.target))
+    input = Object.fromEntries(new FormData(form))
     if (document.querySelectorAll('.repo__item')) {
         for (let el of document.querySelectorAll('.repo__item')) {
             el.remove();
@@ -51,32 +55,20 @@ async function data(e) {
         form.append(str)
         return;
     }
-
 }
-const errEl = document.createElement('p')
 
-const err = () => {
-    form.append(errEl)
-    errEl.classList.add('error')
-    errEl.innerHTML = 'Недостаточно символов'
-}
+
 
 function getData(data) {
     const items = data.items
-    input.value = ''
     if (items.length == 0) {
         form.append(str)
         return;
     } else {
-        getEl(itemEl, items)
-
-    }
-}
-
-const getEl = (item, items) => {
-    for (let i = 0; i < 10; i++) {
-        let el = items[i]
-        item.append(createEl(el))
+        for (let i = 0; i < 10; i++) {
+            let el = items[i]
+            itemEl.append(createEl(el))
+        }
     }
 }
 
